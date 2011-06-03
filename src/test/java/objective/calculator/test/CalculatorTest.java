@@ -18,5 +18,16 @@ public class CalculatorTest {
 		
 		assertEquals("Result Expected","12345678910125456",result);
 	}
+	
+	@Test
+	public void subtract() {
+		Calculator calc = new HugeCalculator();
+		
+		String valuerLeft = "12345678910123456";
+		String valueRight = "4000";
+		String result = calc.subtract(valuerLeft, valueRight);
+		
+		assertEquals("Result Expected","12345678910119456",result);
+	}
 
 }
