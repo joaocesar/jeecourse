@@ -31,7 +31,7 @@ public class HugeCalculator implements Calculator {
 			sum.replace(i, i+1, Integer.toString(sumDigit));
 		}
 		if (carryDigit > 0)
-			sum.append(carryDigit);
+			sum.insert(0,carryDigit);
 		
 		
 		return sum.toString();
@@ -70,8 +70,11 @@ public class HugeCalculator implements Calculator {
 			rest.replace(i, i+1, Integer.toString(restDigit));
 		}
 
-		if (auxDigit == 1)
+		if (auxDigit == 1) {
+			restDigit = 10 - Integer.parseInt(rest.substring(0, 1));
+			rest.replace(0, 1, Integer.toString(restDigit));
 			rest.insert(0, "-");
+		}
 		
 		return rest.toString();
 	}
@@ -88,9 +91,24 @@ public class HugeCalculator implements Calculator {
 
 	@Override
 	public int compare(String left, String right) {
+
+		int comparation = 0;
+		
 		if (left.equals(right))
-			return 0;
-		return 0;
+			return comparation;
+
+		parcelLeft = new StringBuffer(left);
+		parcelRight = new StringBuffer(right);
+
+		if (parcelLeft.length() > parcelRight.length())
+			fillLeftStringWithZeros(parcelRight, parcelLeft.length());
+		else
+			fillLeftStringWithZeros(parcelLeft, parcelRight.length());
+
+		comparation = (parcelLeft.toString().compareTo(parcelRight.toString())) > 0 ? 1 : -1;
+		
+		return comparation;
+		
 	}
 
 }
